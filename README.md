@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## About
+
+- elements.tsx contain styled components.
+- the look and feel is in desperate need for a good designer, but hopefully the actual logical layout is OK. 
+
 ## Available Scripts
 
 In the project directory, you can run:

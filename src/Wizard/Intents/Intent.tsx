@@ -1,4 +1,17 @@
+import { Checkbox } from "../../elements";
 import { Intent as IntentType } from "../../entities/intent/types";
+import {
+  Description,
+  Details,
+  ExamplesText,
+  Examples,
+  Expressions,
+  InfoWrapper,
+  Name,
+  Question,
+  Response,
+  Tile,
+} from "./elements";
 
 type Props = {
   intent: IntentType;
@@ -7,29 +20,39 @@ type Props = {
 };
 
 function Intent({ intent, isSelected, onClick }: Props) {
+  const expressions = intent.trainingData.expressions;
+
   return (
-    <div
-      style={{
-        border: `1px solid black`,
-        background: isSelected ? "pink" : "none",
-      }}
-      onClick={onClick}
-    >
-      <input
-        type="checkbox"
-        name={`select ${intent.name}`}
-        checked={isSelected}
-      ></input>
-      <h3>{intent.name}</h3>
-      <p>Description: {intent.description}</p>
-      <div>
-        <p>Example expressions:</p>
-        {intent.trainingData.expressions.map((expression) => (
-          <p>{expression.text}</p>
-        ))}
-      </div>
-      <p>Reply: {intent.reply.text}</p>
-    </div>
+    <Tile isSelected={isSelected} onClick={onClick}>
+      <Checkbox name={`select ${intent.name}`} checked={isSelected} />
+      <InfoWrapper>
+        <Details>
+          <Name>{intent.name}</Name>
+          <Description>{intent.description}</Description>
+          <Expressions>
+            <span>e.g.</span>
+            {expressions.map((expression, i) => (
+              <>
+                <span>"{expression.text}"</span>
+                {i !== expressions.length - 1 && <span>,</span>}
+              </>
+            ))}
+          </Expressions>
+        </Details>
+        {/* This is supposed to look like a conversation. */}
+        <Examples>
+          <ExamplesText>EXAMPLE</ExamplesText>
+          <Question>
+            {expressions[0].text}
+            <span>USER</span>
+          </Question>
+          <Response>
+            {intent.reply.text}
+            <span>ASSISTANT</span>
+          </Response>
+        </Examples>
+      </InfoWrapper>
+    </Tile>
   );
 }
 

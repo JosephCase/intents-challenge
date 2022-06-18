@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Checkbox, PageLayout } from "../../elements";
 import { getIntents } from "../../entities/intent/selectors";
 import WizardNavigation from "../WizardNavigation";
 import Intent from "./Intent";
@@ -40,7 +41,7 @@ function Intents({ onComplete }: Props) {
   };
 
   return (
-    <section>
+    <PageLayout>
       <h2>Intents</h2>
       <p>
         Select the user intents that you would like the digital assistent to
@@ -62,14 +63,13 @@ function Intents({ onComplete }: Props) {
       </div>
       <label>
         <span>Select all:</span>
-        <input
-          type="checkbox"
+        <Checkbox
           name="selectAll"
           checked={intents.every((intent) =>
             selectedIntents.find((intentId) => intent.id === intentId)
           )}
           onChange={handleSelectAll}
-        ></input>
+        />
       </label>
 
       {intents.map((intent) => (
@@ -82,7 +82,7 @@ function Intents({ onComplete }: Props) {
         />
       ))}
       <WizardNavigation onBackClick={() => {}} onNextClick={() => {}} />
-    </section>
+    </PageLayout>
   );
 }
 
