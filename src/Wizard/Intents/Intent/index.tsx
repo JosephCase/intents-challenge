@@ -1,16 +1,11 @@
-import { Checkbox } from "../../elements";
-import { Intent as IntentType } from "../../entities/intent/types";
+import Conversation from "../../../components/Conversation";
+import { Checkbox } from "../../../elements";
+import { Intent as IntentType } from "../../../entities/intent/types";
 import {
   Description,
-  Details,
-  ExamplesText,
-  Examples,
-  Expressions,
+  Details, Expressions,
   InfoWrapper,
-  Name,
-  Question,
-  Response,
-  Tile,
+  Name, Tile
 } from "./elements";
 
 type Props = {
@@ -40,17 +35,12 @@ function Intent({ intent, isSelected, onClick }: Props) {
           </Expressions>
         </Details>
         {/* This is supposed to look like a conversation. */}
-        <Examples>
-          <ExamplesText>EXAMPLE</ExamplesText>
-          <Question>
-            {expressions[0].text}
-            <span>USER</span>
-          </Question>
-          <Response>
-            {intent.reply.text}
-            <span>ASSISTANT</span>
-          </Response>
-        </Examples>
+        <Conversation
+          conversation={[
+            { text: expressions[0].text, speaker: "USER" },
+            { text: intent.reply.text, speaker: "ASSISTANT" },
+          ]}
+        />
       </InfoWrapper>
     </Tile>
   );

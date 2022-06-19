@@ -1,7 +1,17 @@
 import { useMemo, useState } from "react";
+import Conversation from "../../components/Conversation";
+import InfoBox from "../../components/InfoBox";
 import { Checkbox, PageLayout } from "../../elements";
 import { getIntents } from "../../entities/intent/selectors";
 import WizardNavigation from "../WizardNavigation";
+import {
+  ExampleDesc,
+  SelectAllLabel,
+  SelectionSummary,
+  SubTitle,
+  SummaryWrapper,
+  Title,
+} from "./elements";
 import Intent from "./Intent";
 
 type Props = {
@@ -42,35 +52,43 @@ function Intents({ onComplete }: Props) {
 
   return (
     <PageLayout>
-      <h2>Intents</h2>
-      <p>
-        Select the user intents that you would like the digital assistent to
+      <Title>Intents</Title>
+      <SubTitle>
+        Select the user intents that you would like the digital assistant to
         understand.
-      </p>
-      <div>
+      </SubTitle>
+      <InfoBox label={"What is an Intent?"}>
         {/* I thought the description of an intent in the task was very clear so I basically copied it */}
-        <p>
-          <span>info icon</span>
-          <span>
-            When a user writes a message in the chat, our AI analyzes that
-            message to understand the users <b>intent</b> and give the
-            appropriate reply, for example:
-          </span>
-          <span>{`> User: "Hello"`}</span>
-          <span>{`*AI understands that this is a Greeting*`}</span>
-          <span>{`> AI: "Hello :) How can I help you?"`}</span>
-        </p>
-      </div>
-      <label>
-        <span>Select all:</span>
-        <Checkbox
-          name="selectAll"
-          checked={intents.every((intent) =>
-            selectedIntents.find((intentId) => intent.id === intentId)
-          )}
-          onChange={handleSelectAll}
+        <ExampleDesc>
+          When a user writes a message in the chat, our AI analyzes that message
+          to understand the users <em>Intent</em> and give the apropriate reply,
+          for example:
+        </ExampleDesc>
+        <Conversation
+          conversation={[
+            { text: "Hello", speaker: "USER" },
+            {
+              text: "*understands that this is a Greeting*",
+              speaker: "ASSISTANT",
+            },
+            { text: "Hello :) How can I help you?", speaker: "ASSISTANT" },
+          ]}
         />
-      </label>
+      </InfoBox>
+      <SummaryWrapper>
+        <SelectAllLabel>
+          <span>Select all</span>
+          <Checkbox
+            name="selectAll"
+            checked={intents.every((intent) =>
+              selectedIntents.find((intentId) => intent.id === intentId)
+            )}
+            onChange={handleSelectAll}
+          />
+        </SelectAllLabel>
+        {/* Would maybe be better if this was fixed to the footer or something so that it's always visible... */}
+        <SelectionSummary>{`${selectedIntents.length}/${intents.length} Intents selected`}</SelectionSummary>
+      </SummaryWrapper>
 
       {intents.map((intent) => (
         <Intent
