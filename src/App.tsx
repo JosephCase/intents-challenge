@@ -1,7 +1,13 @@
-import Wizard from "./Wizard";
+import GlobalStyle from "globalStyle";
+import Wizard from "Wizard";
 
 function App() {
-  return <Wizard />
+  return (
+    <>
+      <GlobalStyle />
+      <Wizard />
+    </>
+  );
 }
 
 export default App;

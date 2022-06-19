@@ -4,8 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## About
 
-- elements.tsx contain styled components.
-- the look and feel is in desperate need for a good designer, but hopefully the actual logical layout is OK. 
+This application is built to simulate the step in a setup wizard for a digital assistant. It's been written in a way to imagine it being part of a much larger application.
+ 
+- `components` contains UI components with no business logic. These are intended to be un-opinionated and re-usable. They could be abstracted to a component kit and re-used throughout different applications.
+- `modules` describe logical pieces of the application, in this case there is just one module, the "intent" module, which represents the intent entity.
+- The `Wizard` component is the main part of the application. In a larger application this could be inside a routes folder, which would contain the main views/routes of the application.
+- The look and feel is in need of a good designer, but it should still be clear if not a little bit ugly. 
 
 ## Available Scripts
 

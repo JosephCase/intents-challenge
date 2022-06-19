@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
+// COLORS
+// a larger app could be in it's own file
 export const BLUE = "rgb(0, 122, 255)";
 export const LIGHT_BLUE = "#f5f8fe;";
 export const BLACK = "#2b2b2b";
 export const GREY = "#bababa";
+
+
 export const PageLayout = styled.div`
   width: 100%;
   max-width: 1200px;

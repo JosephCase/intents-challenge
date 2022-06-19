@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PageLayout } from "../elements";
+import { PageLayout } from "elements";
 
 const NAVIGATION_HEIGHT = 80;
 

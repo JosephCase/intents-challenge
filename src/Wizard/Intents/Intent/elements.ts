@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Examples } from "../../../components/Conversation/elements";
-import { BLUE, Checkbox } from "../../../elements";
+import { Examples } from "components/Conversation/elements";
+import { BLUE, Checkbox } from "elements";
 
 export const Tile = styled.div<{ isSelected?: boolean }>`
   min-height: 160px;

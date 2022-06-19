@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BLUE } from "../../elements";
+import { BLUE } from "elements";
 
 export const Title = styled.h2`
   font-size: 38px;
@@ -33,7 +33,7 @@ export const SummaryWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 32px;
+  margin-top: 58px;
 `;
 
 export const SelectionSummary = styled.p`

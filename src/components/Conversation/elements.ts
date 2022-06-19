@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BLUE, LIGHT_BLUE } from "../../elements";
+import { BLUE, LIGHT_BLUE } from "elements";
 
 export const Examples = styled.div`
   position: relative;

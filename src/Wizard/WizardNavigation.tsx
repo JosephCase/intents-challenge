@@ -1,5 +1,5 @@
-import { Button } from "../elements";
-import { ButtonWrapper, Navigation, NavigationSpacer } from "./element";
+import { Button } from "elements";
+import { ButtonWrapper, Navigation, NavigationSpacer } from "./elements";
 
 type Props = {
   onBackClick: () => void;

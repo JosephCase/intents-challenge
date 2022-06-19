@@ -1,6 +1,6 @@
-import Conversation from "../../../components/Conversation";
-import { Checkbox } from "../../../elements";
-import { Intent as IntentType } from "../../../entities/intent/types";
+import Conversation from "components/Conversation";
+import { Checkbox } from "elements";
+import { Intent as IntentType } from "modules/intent/types";
 import {
   Description,
   Details, Expressions,

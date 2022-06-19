@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import Conversation from "../../components/Conversation";
-import InfoBox from "../../components/InfoBox";
-import { Checkbox, PageLayout } from "../../elements";
-import { getIntents } from "../../entities/intent/selectors";
+import Conversation from "components/Conversation";
+import InfoBox from "components/InfoBox";
+import { Checkbox, PageLayout } from "elements";
+import { getIntents } from "modules/intent/selectors";
 import WizardNavigation from "../WizardNavigation";
 import {
   ExampleDesc,
@@ -13,6 +13,29 @@ import {
   Title,
 } from "./elements";
 import Intent from "./Intent";
+import { Intent as IntentType } from "modules/intent/types";
+
+// abstract these functions here so that they could be unit tested
+const toggleSelectIntent = (selectedIntent: string) => (intents: string[]) => {
+  // if the intent is there, remove it, otherwise add it
+  if (intents.find((intent) => intent === selectedIntent)) {
+    return intents.filter((intent) => intent !== selectedIntent);
+  } else {
+    return [...intents, selectedIntent];
+  }
+};
+
+const toggleSelectAllIntents =
+  (intents: IntentType[]) => (selectedIntents: string[]) => {
+    const areAllIntentsSelected = intents.every((intent) =>
+      selectedIntents.find((intentId) => intent.id === intentId)
+    );
+    if (areAllIntentsSelected) {
+      return [];
+    } else {
+      return intents.map((intent) => intent.id);
+    }
+  };
 
 type Props = {
   onComplete: () => void;
@@ -23,31 +46,15 @@ function Intents({ onComplete }: Props) {
   const [selectedIntents, setSelectedIntents] = useState<string[]>([]);
 
   // we know that these will never change
+  // avoid calling it every render
   const intents = useMemo(getIntents, []);
 
-  // use callback?
   const handleIntentClick = (intentId: string) => {
-    setSelectedIntents((state) => {
-      // if the intent is there, remove it, otherwise add it
-      if (state.find((intent) => intent === intentId)) {
-        return state.filter((intent) => intent !== intentId);
-      } else {
-        return [...state, intentId];
-      }
-    });
+    setSelectedIntents(toggleSelectIntent(intentId));
   };
 
   const handleSelectAll = () => {
-    setSelectedIntents((state) => {
-      const areAllIntentsSelected = intents.every((intent) =>
-        state.find((intentId) => intent.id === intentId)
-      );
-      if (areAllIntentsSelected) {
-        return [];
-      } else {
-        return intents.map((intent) => intent.id);
-      }
-    });
+    setSelectedIntents(toggleSelectAllIntents(intents));
   };
 
   return (
@@ -57,12 +64,13 @@ function Intents({ onComplete }: Props) {
         Select the user intents that you would like the digital assistant to
         understand.
       </SubTitle>
+      {/* This info box maybe looks a bit too much like the other white boxes and could do with a better styling */}
       <InfoBox label={"What is an Intent?"}>
         {/* I thought the description of an intent in the task was very clear so I basically copied it */}
         <ExampleDesc>
           When a user writes a message in the chat, our AI analyzes that message
-          to understand the users <em>Intent</em> and give the apropriate reply,
-          for example:
+          to understand the users <em>Intent</em> and give the appropriate
+          reply, for example:
         </ExampleDesc>
         <Conversation
           conversation={[
@@ -99,7 +107,12 @@ function Intents({ onComplete }: Props) {
           onClick={() => handleIntentClick(intent.id)}
         />
       ))}
-      <WizardNavigation onBackClick={() => {}} onNextClick={() => {}} />
+      <WizardNavigation
+        onBackClick={() => {}}
+        onNextClick={() => {
+          // send the selected intents to the server
+        }}
+      />
     </PageLayout>
   );
 }

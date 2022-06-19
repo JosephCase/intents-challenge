@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BLACK, GREY } from "../../elements";
+import { BLACK, GREY } from "elements";
 
 export const Wrapper = styled.div`
   border: 1px solid ${GREY};
